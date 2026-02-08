@@ -1,0 +1,59 @@
+<%- include("partials/header") %>
+
+<div class="container mt-5">
+  <h1 class="mb-4">Your Notes</h1>
+
+  <!-- Create Note Form -->
+  <form action="/notes" method="POST" class="mb-5">
+    <div class="mb-3">
+      <label class="form-label">Title</label>
+      <input
+        type="text"
+        name="title"
+        class="form-control"
+        placeholder="Note title"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Content</label>
+      <textarea
+        name="content"
+        class="form-control"
+        rows="4"
+        placeholder="Write your note here..."
+        required
+      ></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      Add Note
+    </button>
+  </form>
+
+  <hr />
+
+  <!-- Notes List -->
+  <% if (notes.length === 0) { %>
+    <p class="text-muted">No notes yet. Start by adding one above.</p>
+  <% } else { %>
+    <% notes.forEach(note => { %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= note.title %></h5>
+          <p class="card-text"><%= note.content %></p>
+          <small class="text-muted">
+            Created on <%= new Date(note.created_at).toLocaleString() %>
+          </small>
+        </div>
+      </div>
+    <% }) %>
+  <% } %>
+
+  <a href="/logout" class="btn btn-outline-secondary mt-4">
+    Logout
+  </a>
+</div>
+
+<%- include("partials/footer") %>
